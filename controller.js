@@ -21,30 +21,13 @@ export const connect = async (payload) => {
         await modbus.connect()
         modbus.client.setID(1)
         
-        const modbusAddrRes = await modbus.client.readHoldingRegisters(49153, 1);
-        const modbusAddress = modbusAddrRes.data[0] & 0x00FF;
-
-        const snRes = await modbus.client.readHoldingRegisters(45065, 8);
-        const snBuffer = Buffer.alloc(snRes.data.length * 2);
-        snRes.data.forEach((val, i) => snBuffer.writeUInt16BE(val, i * 2));
-        const sn = snBuffer.toString('ascii').replace(/\0/g, '');
-
-        const labelRes = await modbus.client.readHoldingRegisters(45125, 8);
-        const labelBuffer = Buffer.alloc(labelRes.data.length * 2);
-        labelRes.data.forEach((val, i) => labelBuffer.writeUInt16BE(val, i * 2));
-        const label = labelBuffer.toString('ascii').replace(/\0/g, '');
-
-        return {
-            modbusAddress,
-            serialNumber: sn,
-            sensorLabel: label
-        };
+        return 'OK'
     } catch (error) {
         throw error
     }
 }
 
-export const dataQureCommand = async () => {
+export const dataQueryCommand = async () => {
     const register = [
         { name: 'avgFlow', addr: 43535, count: 2, type: 'float', unit: 'm/s' },
         { name: 'realtimeFlow', addr: 43537, count: 2, type: 'float', unit: 'm/s' },
