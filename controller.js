@@ -42,7 +42,7 @@ export const getValue = async () => {
         const res = await modbus.client.readInputRegisters(reg.addr, reg.count)
         let value;
         if(reg.type == 'float') {
-            value = res.buffer.readFloatBE(0)
+            value = res.buffer.readFloatBE(0).toFixed(2)
         } else {
             value = res.data[0] / 100
         }
