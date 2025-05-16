@@ -29,7 +29,8 @@ app.post('/connect', async (req, res) => {
 
 app.post('/disconnect', async (req, res) => {
     try {
-        await disconnected()
+        const data = await disconnected()
+        res.status(200).json(data)
     } catch (error) {
         console.log(error)
     }
