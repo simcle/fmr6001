@@ -1,0 +1,22 @@
+{
+  "name": "modbus",
+  "version": "1.0.0",
+  "description": "congifurator FMR6001 Water leeve RADAR",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "author": "Nendi Sofiandy",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "modbus-serial": "^8.0.21-no-serial-port",
+    "serialport": "^13.0.0"
+  }
+}
