@@ -1,7 +1,7 @@
 import express, { json } from 'express';
 import cors from 'cors'
 import { listAvailableSerialPorts } from './serialScanner.js';
-import { connect } from './controller.js';
+import { connect, disconnected } from './controller.js';
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -27,5 +27,12 @@ app.post('/connect', async (req, res) => {
     }
 })
 
+app.post('/disconnect', async (req, res) => {
+    try {
+        await disconnected()
+    } catch (error) {
+        console.log(error)
+    }
+})
 const PORT = 3000;
 app.listen(PORT, () => console.log('Aplikasi sedang berjalan pada PORT:' +PORT))

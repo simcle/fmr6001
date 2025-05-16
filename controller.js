@@ -44,20 +44,27 @@ export const connect = async (payload) => {
     }
 }
 
-const register = [
-    { name: 'avgFlow', addr: 43535, count: 2, type: 'float', unit: 'm/s' },
-    { name: 'realtimeFlow', addr: 43537, count: 2, type: 'float', unit: 'm/s' },
-    { name: 'instantTraffic', addr: 43541, count: 2, type: 'float', unit: 'm³/s' },
-    { name: 'totalTraffic', addr: 43557, count: 2, type: 'float', unit: 'm³' },
-    { name: 'level', addr: 43555, count: 2, type: 'float', unit: 'm' },
-    { name: 'temperature', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
-    { name: 'angle', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
-]
+export const dataQureCommand = async () => {
+    const register = [
+        { name: 'avgFlow', addr: 43535, count: 2, type: 'float', unit: 'm/s' },
+        { name: 'realtimeFlow', addr: 43537, count: 2, type: 'float', unit: 'm/s' },
+        { name: 'instantTraffic', addr: 43541, count: 2, type: 'float', unit: 'm³/s' },
+        { name: 'totalTraffic', addr: 43557, count: 2, type: 'float', unit: 'm³' },
+        { name: 'level', addr: 43555, count: 2, type: 'float', unit: 'm' },
+        { name: 'temperature', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
+        { name: 'angle', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
+    ]
 
-async function readAll () {
+    for(const reg of register) {
+
+    }
+}
+
+export const disconnected = async () => {
     try {
-        await client.connectRTUBuffered()
+        await modbus.client.close()
+        return 'diconnected'
     } catch (error) {
-        
+        console.log(error)
     }
 }
