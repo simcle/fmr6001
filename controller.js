@@ -12,21 +12,21 @@
 // Kemiringan (angle) 43554
 
 import ModbusService from "./services.js"
-let client 
+let modbus 
 
 export const connect = async (payload) => {
     const { trasport, port, baudarate, ip, tcpPort, } = payload
-    client = new ModbusService({transport: trasport, port: port, baudRate: baudarate, ip: ip, tcpPort: tcpPort})
+    modbus = new ModbusService({transport: trasport, port: port, baudRate: baudarate, ip: ip, tcpPort: tcpPort})
     try {
-        await client.connect()
-        await client.setID(1)
-        const modbusAddrRes = await client.readHoldingRegisters(1, 5);
+        await modbus.connect()
+        modbus.client.setID(1)
+        const modbusAddrRes = await modbus.client.readHoldingRegisters(1, 5);
         console.log(payload, modbusAddrRes)
         const modbusAddress = modbusAddrRes.data[0] & 0x00FF;
-        const snRes = await client.readHoldingRegisters(45065, 8);
+        const snRes = await modbus.client.readHoldingRegisters(45065, 8);
         const sn = Buffer.from(snRes.buffer).toString('ascii').replace(/\0/g, '');
 
-        const labelRes = await client.readHoldingRegisters(45125, 8);
+        const labelRes = await modbus.client.readHoldingRegisters(45125, 8);
         const label = Buffer.from(labelRes.buffer).toString('ascii').replace(/\0/g, '');
 
         return {
