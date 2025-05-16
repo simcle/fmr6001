@@ -27,7 +27,7 @@ export const connect = async (payload) => {
     }
 }
 
-export const dataQueryCommand = async () => {
+export const getValue = async () => {
     const register = [
         { name: 'avgFlow', addr: 43535, count: 2, type: 'float', unit: 'm/s' },
         { name: 'realtimeFlow', addr: 43537, count: 2, type: 'float', unit: 'm/s' },
@@ -37,10 +37,20 @@ export const dataQueryCommand = async () => {
         { name: 'temperature', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
         { name: 'angle', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
     ]
-
+    const obj = {}
     for(const reg of register) {
-
+        const res = await modbus.client.readInputRegisters(reg.addr, reg.count)
+        let value;
+        if(reg.type == 'float') {
+            value = res.buffer.readFloatBE(0)
+        } else {
+            value = res.data[0] / 100
+        }
+        obj['name'] = reg.name
+        obj['value'] = value
+        obj['unit'] = reg.unit
     }
+    return obj
 }
 
 export const disconnected = async () => {
