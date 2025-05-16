@@ -37,7 +37,7 @@ export const getValue = async () => {
         { name: 'temperature', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
         { name: 'angle', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
     ]
-    const obj = {}
+    const result = []
     for(const reg of register) {
         const res = await modbus.client.readInputRegisters(reg.addr, reg.count)
         let value;
@@ -46,11 +46,9 @@ export const getValue = async () => {
         } else {
             value = res.data[0] / 100
         }
-        obj['name'] = reg.name
-        obj['value'] = value
-        obj['unit'] = reg.unit
+        result.push({name: reg.name, value: value, unit: reg.unit})
     }
-    return obj
+    return result
 }
 
 export const disconnected = async () => {
