@@ -48,7 +48,10 @@ export const getValue = async () => {
         const res = await modbus.client.readInputRegisters(reg.addr, reg.count)
         let value;
         if(reg.type == 'float') {
-            value = res.buffer.readFloatLE(0).toFixed(2)
+            const buf = Buffer.alloc(4)
+            buf.writeUint16BE(res.data[1], 0)
+            buf.writeUint16BE(res.data[0], 2)
+            value = res.buffer.readFloatBE(0)
         } else if (reg.type == 'int16/100') {
             value = res.data[0] / 100 
         } else {
@@ -90,7 +93,10 @@ export const getDeviceInfo = async () => {
         } else if(reg.type == 'Int32') {
             value = res.buffer.readInt32LE(0)
         } else if(reg.type == 'float') {
-            value = res.buffer.readFloatLE(0).toFixed(2)
+            const buf = Buffer.alloc(4)
+            buf.writeUint16BE(res.data[1], 0)
+            buf.writeUint16BE(res.data[0], 2)
+            value = res.buffer.readFloatBE(0)
         }
 
         result.push({name: reg.name, value: value, unit: reg.unit})
