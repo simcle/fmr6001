@@ -29,17 +29,18 @@ export const connect = async (payload) => {
 
 export const getValue = async () => {
     const register = [
-        { name: 'avgFlow', addr: 43535, count: 2, type: 'float', unit: 'm/s' },
-        { name: 'realtimeFlow', addr: 43537, count: 2, type: 'float', unit: 'm/s' },
-        { name: 'instantTraffic', addr: 43541, count: 2, type: 'float', unit: 'm³/s' },
-        { name: 'totalTraffic', addr: 43557, count: 2, type: 'float', unit: 'm³' },
-        { name: 'level', addr: 43555, count: 2, type: 'float', unit: 'm' },
-        { name: 'temperature', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
-        { name: 'angle', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
-        { name: 'echoApmlitude', addr: 43531, count: 1, type: 'int16', unit: 'db'},
-        { name: 'alarmRes', addr: 43528, count: 1, type: 'int16', unit: ''},
-        { name: 'highTemp', addr: 51716, count: 1, type: 'int16/100', unit: '°C'},
-        { name: 'lowTemp', addr: 51716, count: 1, type: 'int16/100', unit: '°C'},
+        { name: 'avgFlow', fc: '04', addr: 43535, count: 2, type: 'float', unit: 'm/s' },
+        { name: 'realtimeFlow', fc: '04', addr: 43537, count: 2, type: 'float', unit: 'm/s' },
+        { name: 'instantTraffic', fc: '04', addr: 43541, count: 2, type: 'float', unit: 'm³/s' },
+        { name: 'totalTraffic',fc: '04', addr: 43557, count: 2, type: 'float', unit: 'm³' },
+        { name: 'level', fc: '04', addr: 43555, count: 2, type: 'float', unit: 'm' },
+        { name: 'temperature', fc: '04', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
+        { name: 'angle', fc: '04', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
+        { name: 'echoApmlitude', fc: '04', addr: 43531, count: 1, type: 'int16', unit: 'db'},
+        { name: 'alarmRes', fc: '04', addr: 43528, count: 1, type: 'int16', unit: ''},
+        { name: 'highTemp', fc: '04', addr: 51716, count: 1, type: 'int16/100', unit: '°C'},
+        { name: 'lowTemp', fc: '04', addr: 51717, count: 1, type: 'int16/100', unit: '°C'},
+        { name: 'highHis', fc: '04', addr: 51718, count: 2, type: 'float', unit: '°C'},
     ]
     const result = []
     for(const reg of register) {
@@ -52,6 +53,27 @@ export const getValue = async () => {
         } else {
             value = res.data[0]
         }
+        result.push({name: reg.name, value: value, unit: reg.unit})
+    }
+    return result
+}
+
+export const getDeviceInfo = async () => {
+    const register = [
+        {name: 'slaveID', fc: '03', addr: 49153, count: 1, type: 'Int16', unit: ''},
+        {name: 'serialNumber', fc: '03', addr: 45065, count: 8, type: 'ASCII', unit: 'Char'},
+        {name: 'sensorLabel', fc: '03', addr: 45125, count: 8, type: 'ASCII', unit: 'Char'}
+    ]
+    const result = []
+    for(const reg of register) {
+        const res = await modbus.client.readHoldingRegisters(reg.addr, reg.count)
+        let value;
+        if(reg.type == 'ASCII') {
+            value = res.buffer.toString('ascii')
+        } else if(reg.type == 'Int16') {
+            value = res.data[0]
+        }
+
         result.push({name: reg.name, value: value, unit: reg.unit})
     }
     return result

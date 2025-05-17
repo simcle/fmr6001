@@ -1,7 +1,7 @@
 import express, { json } from 'express';
 import cors from 'cors'
 import { listAvailableSerialPorts } from './serialScanner.js';
-import { connect, getValue, disconnected } from './controller.js';
+import { connect, getValue, getDeviceInfo, disconnected } from './controller.js';
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -35,7 +35,14 @@ app.get('/get-value', async (req, res) => {
         res.status(400).send(error)
     }
 })
-
+app.get('/get-info', async (req, res) => {
+    try {
+        const data = await getDeviceInfo()
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
 app.post('/disconnect', async (req, res) => {
     try {
         const data = await disconnected()
