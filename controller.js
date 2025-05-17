@@ -36,6 +36,8 @@ export const getValue = async () => {
         { name: 'level', addr: 43555, count: 2, type: 'float', unit: 'm' },
         { name: 'temperature', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
         { name: 'angle', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
+        { name: 'echoApmlitude', addr: 43531, count: 1, type: 'int16', unit: 'db'},
+
     ]
     const result = []
     for(const reg of register) {
@@ -43,8 +45,10 @@ export const getValue = async () => {
         let value;
         if(reg.type == 'float') {
             value = res.buffer.readFloatBE(0).toFixed(2)
+        } else if (reg.type == 'int16/100') {
+            value = res.data[0] / 100 
         } else {
-            value = res.data[0] / 100
+            value = res.data[0]
         }
         result.push({name: reg.name, value: value, unit: reg.unit})
     }
