@@ -63,7 +63,13 @@ export const getDeviceInfo = async () => {
     const register = [
         {name: 'slaveID', fc: '03', addr: 49153, count: 1, type: 'Int16', unit: ''},
         {name: 'serialNumber', fc: '03', addr: 45065, count: 8, type: 'ASCII', unit: 'Char'},
-        {name: 'sensorLabel', fc: '03', addr: 45093, count: 8, type: 'ASCII', unit: 'Char'}
+        {name: 'sensorLabel', fc: '03', addr: 45093, count: 8, type: 'ASCII', unit: 'Char'},
+        {name: 'meaMode', fc: '03', addr: 49160, count: 1, type: 'Int16', unit: ''},
+        {name: 'minFlowThreshold', fc: '03', addr: 49220, count: 2, type: 'float32', unit: 'm/s'},
+        {name: 'maxFlowThreshold', fc: '03', addr: 49222, count: 2, type: 'float32', unit: 'm/s'},
+        {name: 'resSpeed', fc: '03', addr: 49299, count: 2, type: 'float32', unit: 'm/s'},
+        {name: 'clrTime', fc: '03', addr: 49169, count: 2, type: 'Int32', unit: 's'},
+        {name: 'rstTimer', fc: '03', addr: 49163, count: 2, type: 'Int32', unit: 's'},
     ]
     const result = []
     for(const reg of register) {
@@ -73,6 +79,8 @@ export const getDeviceInfo = async () => {
             value = res.buffer.toString('ascii')
         } else if(reg.type == 'Int16') {
             value = res.data[0]
+        } else if(reg.type == 'Int32') {
+            value = res.buffer.readInt32LE(0)
         }
 
         result.push({name: reg.name, value: value, unit: reg.unit})
