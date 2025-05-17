@@ -90,7 +90,7 @@ export const getDeviceInfo = async () => {
         } else if(reg.type == 'Int32') {
             value = res.buffer.readInt32LE(0)
         } else if(reg.type == 'float') {
-            value = res.buffer.readFloatLE(0)
+            value = res.buffer.readFloatLE(0).toFixed(2)
         }
 
         result.push({name: reg.name, value: value, unit: reg.unit})
