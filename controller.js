@@ -37,14 +37,16 @@ export const getValue = async () => {
         { name: 'temperature', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
         { name: 'angle', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
         { name: 'echoApmlitude', addr: 43531, count: 1, type: 'int16', unit: 'db'},
-        { name: 'alarmRes', addr: 43528, count: 1, type: 'int16', unit: ''}
+        { name: 'alarmRes', addr: 43528, count: 1, type: 'int16', unit: ''},
+        { name: 'highTemp', addr: 51716, count: 1, type: 'int16/100', unit: '°C'},
+        { name: 'lowTemp', addr: 51716, count: 1, type: 'int16/100', unit: '°C'},
     ]
     const result = []
     for(const reg of register) {
         const res = await modbus.client.readInputRegisters(reg.addr, reg.count)
         let value;
         if(reg.type == 'float') {
-            value = res.buffer.readFloatBE(0).toFixed(2)
+            value = res.buffer.readFloatLE(0).toFixed(2)
         } else if (reg.type == 'int16/100') {
             value = res.data[0] / 100 
         } else {
