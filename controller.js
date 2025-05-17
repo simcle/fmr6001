@@ -36,7 +36,7 @@ export const getValue = async () => {
         { name: 'level', fc: '04', addr: 43555, count: 2, type: 'float', unit: 'm' },
         { name: 'temperature', fc: '04', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
         { name: 'angle', fc: '04', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
-        { name: 'echoApmlitude', fc: '04', addr: 43531, count: 1, type: 'int16', unit: 'db'},
+        { name: 'echoApmlitude', fc: '04', addr: 43531, count: 1, type: 'int16', unit: 'dB'},
         { name: 'alarmRes', fc: '04', addr: 43528, count: 1, type: 'int16', unit: ''},
         { name: 'highTemp', fc: '04', addr: 51716, count: 1, type: 'int16/100', unit: '°C'},
         { name: 'lowTemp', fc: '04', addr: 51717, count: 1, type: 'int16/100', unit: '°C'},
@@ -65,11 +65,19 @@ export const getDeviceInfo = async () => {
         {name: 'serialNumber', fc: '03', addr: 45065, count: 8, type: 'ASCII', unit: 'Char'},
         {name: 'sensorLabel', fc: '03', addr: 45093, count: 8, type: 'ASCII', unit: 'Char'},
         {name: 'meaMode', fc: '03', addr: 49160, count: 1, type: 'Int16', unit: ''},
-        {name: 'minFlowThreshold', fc: '03', addr: 49220, count: 2, type: 'float32', unit: 'm/s'},
-        {name: 'maxFlowThreshold', fc: '03', addr: 49222, count: 2, type: 'float32', unit: 'm/s'},
-        {name: 'resSpeed', fc: '03', addr: 49299, count: 2, type: 'float32', unit: 'm/s'},
+        {name: 'minFlowThreshold', fc: '03', addr: 49220, count: 2, type: 'float', unit: 'm/s'},
+        {name: 'maxFlowThreshold', fc: '03', addr: 49222, count: 2, type: 'float', unit: 'm/s'},
+        {name: 'resSpeed', fc: '03', addr: 49299, count: 2, type: 'float', unit: 'm/s'},
         {name: 'clrTime', fc: '03', addr: 49169, count: 2, type: 'Int32', unit: 's'},
         {name: 'rstTimer', fc: '03', addr: 49163, count: 2, type: 'Int32', unit: 's'},
+        {name: 'rstMargin', fc: '03', addr: 49305, count: 2, type: 'float', unit: 'dB'},
+        {name: 'threSeeting', fc: '03', addr: 49184, count: 2, type: 'Int32', unit: ''},
+        {name: 'smoothVal', fc: '03', addr: 49304, count: 2, type: 'Int32', unit: ''},
+        {name: 'instOffet', fc: '03', addr: 49310, count: 2, type: 'float', unit: 'm'},
+        {name: 'leftSlope', fc: '03', addr: 49312, count: 2, type: 'float', unit: '°'},
+        {name: 'rightSlope', fc: '03', addr: 49325, count: 2, type: 'float', unit: '°'},
+        {name: 'rivBottWidth', fc: '03', addr: 49314, count: 2, type: 'float', unit: 'm'},
+        {name: 'flowOffset', fc: '03', addr: 49329, count: 2, type: 'float', unit: 'm'},
     ]
     const result = []
     for(const reg of register) {
@@ -81,6 +89,8 @@ export const getDeviceInfo = async () => {
             value = res.data[0]
         } else if(reg.type == 'Int32') {
             value = res.buffer.readInt32LE(0)
+        } else if(reg.type == 'float') {
+            value = res.buffer.readFloatLE(0)
         }
 
         result.push({name: reg.name, value: value, unit: reg.unit})
