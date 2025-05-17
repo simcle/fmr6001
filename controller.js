@@ -104,6 +104,9 @@ export const getDeviceInfo = async () => {
     return result
 }
 
+export const settingDevice = async (payload) => {
+    console.log(payload)
+}
 export const disconnected = async () => {
     try {
         await modbus.client.close()
