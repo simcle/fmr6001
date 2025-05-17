@@ -62,7 +62,7 @@ export const getDeviceInfo = async () => {
     const register = [
         {name: 'slaveID', fc: '03', addr: 49153, count: 1, type: 'Int16', unit: ''},
         {name: 'serialNumber', fc: '03', addr: 45065, count: 8, type: 'ASCII', unit: 'Char'},
-        {name: 'sensorLabel', fc: '03', addr: 45125, count: 8, type: 'ASCII', unit: 'Char'}
+        {name: 'sensorLabel', fc: '03', addr: 45093, count: 8, type: 'ASCII', unit: 'Char'}
     ]
     const result = []
     for(const reg of register) {
