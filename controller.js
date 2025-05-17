@@ -108,7 +108,10 @@ export const settingDevice = async (payload) => {
     try {
         const register = payload
         for(const reg of register) {
-            console.log(reg)
+            if(reg.type == 'float') {
+                const value = parseFloat(reg.value)
+                console.log(value)
+            }
         }
         return 'OK'
     } catch (error) {
