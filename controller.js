@@ -110,7 +110,11 @@ export const settingDevice = async (payload) => {
         for(const reg of register) {
             if(reg.type == 'float') {
                 const value = parseFloat(reg.value)
-                console.log(value)
+                const buf = Buffer.alloc(4)
+                buf.writeFloatBE(value)
+                const reg1 = buf.readUInt16BE(2)
+                const reg2 = buf.readUInt16BE(0)
+                console.log(reg1, reg2)
             }
         }
         return 'OK'
