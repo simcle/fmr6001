@@ -37,7 +37,7 @@ export const getValue = async () => {
         { name: 'temperature', addr: 43521, count: 1, type: 'int16/100', unit: '°C' },
         { name: 'angle', addr: 43554, count: 1, type: 'int16/100', unit: '°' },
         { name: 'echoApmlitude', addr: 43531, count: 1, type: 'int16', unit: 'db'},
-
+        { name: 'alarmRes', addr: 43528, count: 1, type: 'int16', unit: ''}
     ]
     const result = []
     for(const reg of register) {
