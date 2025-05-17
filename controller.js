@@ -40,7 +40,8 @@ export const getValue = async () => {
         { name: 'alarmRes', fc: '04', addr: 43528, count: 1, type: 'int16', unit: ''},
         { name: 'highTemp', fc: '04', addr: 51716, count: 1, type: 'int16/100', unit: '°C'},
         { name: 'lowTemp', fc: '04', addr: 51717, count: 1, type: 'int16/100', unit: '°C'},
-        { name: 'highHis', fc: '04', addr: 51718, count: 2, type: 'float', unit: '°C'},
+        { name: 'highHis', fc: '04', addr: 51718, count: 2, type: 'float', unit: 'm/s'},
+        { name: 'lowHis', fc: '04', addr: 51720, count: 2, type: 'float', unit: 'm/s'},
     ]
     const result = []
     for(const reg of register) {
