@@ -114,7 +114,7 @@ export const settingDevice = async (payload) => {
                 buf.writeFloatBE(value)
                 const reg1 = buf.readUInt16BE(2)
                 const reg2 = buf.readUInt16BE(0)
-                console.log(reg1, reg2)
+                await modbus.client.writeRegisters(reg.addr, [reg1, reg2])
             }
         }
         return 'OK'
