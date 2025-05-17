@@ -105,7 +105,15 @@ export const getDeviceInfo = async () => {
 }
 
 export const settingDevice = async (payload) => {
-    console.log(payload)
+    try {
+        const register = payload
+        for(const reg of register) {
+            console.log(reg)
+        }
+        return 'OK'
+    } catch (error) {
+        
+    }
 }
 export const disconnected = async () => {
     try {

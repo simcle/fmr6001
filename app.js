@@ -44,7 +44,13 @@ app.get('/get-info', async (req, res) => {
     }
 })
 app.post('/settings', async (req, res) => {
-    console.log(req.body)
+    try {
+        const payload = req.body
+        const data = await settingDevice(payload)
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(400).send(error)
+    }
 })
 app.post('/disconnect', async (req, res) => {
     try {
