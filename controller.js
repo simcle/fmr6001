@@ -28,9 +28,6 @@ export const connect = async (payload) => {
 }
 
 export const getValue = async () => {
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
     const register = [
         { name: 'avgFlow', fc: '04', addr: 43535, count: 2, type: 'float', unit: 'm/s' },
         { name: 'realtimeFlow', fc: '04', addr: 43537, count: 2, type: 'float', unit: 'm/s' },
@@ -61,15 +58,11 @@ export const getValue = async () => {
             value = res.data[0]
         }
         result.push({name: reg.name, value: value, unit: reg.unit})
-        await sleep(100)
     }
     return result
 }
 
 export const getDeviceInfo = async () => {
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
     const register = [
         {name: 'slaveID', fc: '03', addr: 49153, count: 1, type: 'Int16', unit: ''},
         {name: 'serialNumber', fc: '03', addr: 45065, count: 8, type: 'ASCII', unit: 'Char'},
