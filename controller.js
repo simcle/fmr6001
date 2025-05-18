@@ -126,7 +126,7 @@ export const settingDevice = async (payload) => {
             const reg1 = buf.readUInt16BE(2)
             const reg2 = buf.readUInt16BE(0)
             await modbus.client.writeRegisters(reg.addr, [reg1, reg2])
-            res = await modbus.client.readHoldingRegisters(reg, 2)
+            res = await modbus.client.readHoldingRegisters(reg.addr, 2)
             buf.writeUint16BE(res.data[1], 0)
             buf.writeUint16BE(res.data[0], 2)
             return buf.readFloatBE(0).toFixed(2)
