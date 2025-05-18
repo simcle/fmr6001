@@ -132,7 +132,8 @@ export const settingDevice = async (payload) => {
 
 export const commandLerning = async (payload) => {
     try {
-        await modbus.client.writeRegisters(49219, [1])
+        console.log(payload)
+        await modbus.client.writeRegisters(49219, [payload])
         return 'OK'
     } catch (error) {
         
