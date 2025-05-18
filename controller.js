@@ -74,7 +74,7 @@ export const getDeviceInfo = async () => {
         {name: 'clrTime', fc: '03', addr: 49169, count: 1, type: 'Int16', unit: 's'},
         {name: 'rstTimer', fc: '03', addr: 49163, count: 1, type: 'Int16', unit: 's'},
         {name: 'rstMargin', fc: '03', addr: 49297, count: 2, type: 'float', unit: 'dB'},
-        {name: 'threSeeting', fc: '03', addr: 49184, count: 2, type: 'Int32', unit: ''},
+        {name: 'threSeeting', fc: '03', addr: 49184, count: 1, type: 'Int16', unit: ''},
         {name: 'smoothVal', fc: '03', addr: 49304, count: 2, type: 'Int32', unit: ''},
         {name: 'instOffet', fc: '03', addr: 49310, count: 2, type: 'float', unit: 'm'},
         {name: 'leftSlope', fc: '03', addr: 49312, count: 2, type: 'float', unit: '°'},
