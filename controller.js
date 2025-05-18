@@ -83,6 +83,7 @@ export const getDeviceInfo = async () => {
         {name: 'flowOffset', fc: '03', addr: 49329, count: 2, type: 'float', unit: 'm'},
         {name: 'veLearing', fc: '03', addr: 49214, count: 1, type: 'Int16', unit: ''},
         {name: 'cmdLearing', fc: '03', addr: 49219, count: 1, type: 'Int16', unit: ''},
+        {name: 'strVirtualEcho', fc: '03', addr: 49215, count: 1, type: 'float', unit: 'm'},
     ]
     const result = []
     for(const reg of register) {
