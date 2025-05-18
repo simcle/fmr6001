@@ -128,6 +128,17 @@ export const settingDevice = async (payload) => {
         console.log(error)
     }
 }
+
+export const factoryReset = async () => {
+    try {
+        const data  = [0x0000]
+        await modbus.client.writeRegisters(45056, data)
+        return 'OK'
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const disconnected = async () => {
     try {
         await modbus.client.close()

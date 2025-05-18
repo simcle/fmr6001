@@ -2,7 +2,7 @@ import express, { json } from 'express';
 import cors from 'cors'
 import PQueue from 'p-queue';
 import { listAvailableSerialPorts } from './serialScanner.js';
-import { connect, getValue, getDeviceInfo, disconnected, settingDevice } from './controller.js';
+import { connect, getValue, getDeviceInfo, disconnected, settingDevice, factoryReset } from './controller.js';
 
 const queue = new PQueue({concurrency: 1})
 const app = express()
@@ -64,6 +64,18 @@ app.post('/settings', async (req, res) => {
         res.status(400).send(error)
     }
 })
+
+app.post('/factory-reset', async (req, res) => {
+    try {
+        await queue.add(async() => {
+            const data = await factoryReset()
+            res.status(200).json(data)
+        })
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+
 app.post('/disconnect', async (req, res) => {
     try {
         await queue.add(async() => {
