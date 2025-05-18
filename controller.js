@@ -116,6 +116,15 @@ export const settingDevice = async (payload) => {
                 const data = await modbus.client.writeRegisters(reg.addr, [value])
                 console.log('int '+data)
             }
+            if(reg.type == 'float' && reg.addr == 49310) {
+                const value = parseFloat(reg.value)
+                const buf = Buffer.alloc(4)
+                buf.writeFloatBE(value)
+                const reg1 = buf.readUInt16BE(2)
+                const reg2 = buf.readUInt16BE(0)
+                const data = await modbus.client.writeRegisters(reg.addr, [reg1, reg2])
+                console.log('float', reg.name, value, reg1, reg2 )
+            }
             if(reg.type == 'float') {
                 const value = parseFloat(reg.value)
                 const buf = Buffer.alloc(4)
