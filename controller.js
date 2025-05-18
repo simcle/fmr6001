@@ -110,7 +110,8 @@ export const settingDevice = async (payload) => {
         for(const reg of register) {
             if(reg.type == 'Int16') {
                 const value = parseInt(reg.value)
-                await modbus.client.writeRegisters(reg.addr, [value])
+                const data = await modbus.client.writeRegisters(reg.addr, [value])
+                console.log('int '+data)
             }
             if(reg.type == 'float') {
                 const value = parseFloat(reg.value)
@@ -118,12 +119,13 @@ export const settingDevice = async (payload) => {
                 buf.writeFloatBE(value)
                 const reg1 = buf.readUInt16BE(2)
                 const reg2 = buf.readUInt16BE(0)
-                await modbus.client.writeRegisters(reg.addr, [reg1, reg2])
+                const data = await modbus.client.writeRegisters(reg.addr, [reg1, reg2])
+                console.log('float', reg.name, data )
             }
         }
         return 'OK'
     } catch (error) {
-        
+        console.log(error)
     }
 }
 export const disconnected = async () => {
