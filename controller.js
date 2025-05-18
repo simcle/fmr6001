@@ -100,7 +100,6 @@ export const getDeviceInfo = async () => {
         }
 
         result.push({name: reg.name, value: value, unit: reg.unit})
-        await sleep(100)
     }
     return result
 }
