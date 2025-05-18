@@ -134,8 +134,9 @@ export const settingDevice = async (payload) => {
 
 export const virtualLearning = async (payload) => {
     try {
-        console.log(payload)
-        await modbus.client.writeRegisters(49214, [payload])
+        const val = parseInt(payload)
+        console.log(val)
+        await modbus.client.writeRegisters(49214, [val])
         return 'OK'
     } catch (error) {
         
