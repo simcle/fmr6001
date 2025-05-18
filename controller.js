@@ -105,9 +105,6 @@ export const getDeviceInfo = async () => {
 }
 
 export const settingDevice = async (payload) => {
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
     try {
         const register = payload
         for(const reg of register) {
@@ -125,17 +122,6 @@ export const settingDevice = async (payload) => {
                 const data = await modbus.client.writeRegisters(reg.addr, [reg1, reg2])
                 console.log('float', reg.name, value, reg1, reg2 )
             }
-            if(reg.type == 'float' && reg.addr !== 49310) {
-                const value = parseFloat(reg.value)
-                const buf = Buffer.alloc(4)
-                buf.writeFloatBE(value)
-                const reg1 = buf.readUInt16BE(2)
-                const reg2 = buf.readUInt16BE(0)
-                const data = await modbus.client.writeRegisters(reg.addr, [reg1, reg2])
-                console.log('float', reg.name, value, reg1, reg2 )
-            }
-
-            await sleep(100)
         }
         return 'OK'
     } catch (error) {
