@@ -81,6 +81,7 @@ export const getDeviceInfo = async () => {
         {name: 'rightSlope', fc: '03', addr: 49325, count: 2, type: 'float', unit: '°'},
         {name: 'rivBottWidth', fc: '03', addr: 49314, count: 2, type: 'float', unit: 'm'},
         {name: 'flowOffset', fc: '03', addr: 49329, count: 2, type: 'float', unit: 'm'},
+        {name: 'veLearing', fc: '03', addr: 49149, count: 1, type: 'Int16', unit: ''},
     ]
     const result = []
     for(const reg of register) {
