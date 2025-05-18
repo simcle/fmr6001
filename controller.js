@@ -142,8 +142,9 @@ export const virtualLearning = async (payload) => {
 
 export const commandLerning = async (payload) => {
     try {
-        console.log(payload)
-        await modbus.client.writeRegisters(49219, [payload])
+        const val = parseInt(payload)
+        console.log(val)
+        await modbus.client.writeRegisters(49219, [val])
         return 'OK'
     } catch (error) {
         
