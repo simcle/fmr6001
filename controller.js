@@ -72,7 +72,7 @@ export const getDeviceInfo = async () => {
         {name: 'maxFlowThreshold', fc: '03', addr: 49222, count: 2, type: 'float', unit: 'm/s'},
         {name: 'resSpeed', fc: '03', addr: 49299, count: 2, type: 'float', unit: 'm/s'},
         {name: 'clrTime', fc: '03', addr: 49169, count: 2, type: 'Int32', unit: 's'},
-        {name: 'rstTimer', fc: '03', addr: 49163, count: 2, type: 'Int32', unit: 's'},
+        {name: 'rstTimer', fc: '03', addr: 49163, count: 1, type: 'Int16', unit: 's'},
         {name: 'rstMargin', fc: '03', addr: 49305, count: 2, type: 'float', unit: 'dB'},
         {name: 'threSeeting', fc: '03', addr: 49184, count: 2, type: 'Int32', unit: ''},
         {name: 'smoothVal', fc: '03', addr: 49304, count: 2, type: 'Int32', unit: ''},
