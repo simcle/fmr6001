@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "modbus-serial": "^8.0.21-no-serial-port",
+    "p-queue": "^8.1.0",
     "serialport": "^13.0.0"
   }
 }
