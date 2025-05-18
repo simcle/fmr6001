@@ -129,7 +129,7 @@ export const settingDevice = async (payload) => {
             res = await modbus.client.readHoldingRegisters(reg, 2)
             buf.writeUint16BE(res.data[1], 0)
             buf.writeUint16BE(res.data[0], 2)
-            return buf.readFloatBE(0)
+            return buf.readFloatBE(0).toFixed(2)
         }
     } catch (error) {
         console.log(error)
