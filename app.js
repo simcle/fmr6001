@@ -2,7 +2,7 @@ import express, { json } from 'express';
 import cors from 'cors'
 import PQueue from 'p-queue';
 import { listAvailableSerialPorts } from './serialScanner.js';
-import { connect, getValue, getDeviceInfo, disconnected, settingDevice, factoryReset, commandLerning } from './controller.js';
+import { connect, getValue, getDeviceInfo, disconnected, settingDevice, factoryReset, commandLerning, virtualLearning } from './controller.js';
 
 const queue = new PQueue({concurrency: 1})
 const app = express()
@@ -58,6 +58,18 @@ app.post('/settings', async (req, res) => {
         await queue.add(async () => {
             const payload = req.body
             const data = await settingDevice(payload)
+            res.status(200).json(data)
+        })
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+
+app.post('/virtual-learning', async (req, res) => {
+    try {
+        await queue.add(async() => {
+            const payload = req.body.data 
+            const data = await virtualLearning(payload)
             res.status(200).json(data)
         })
     } catch (error) {

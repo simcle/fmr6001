@@ -130,6 +130,16 @@ export const settingDevice = async (payload) => {
     }
 }
 
+export const virtualLearning = async (payload) => {
+    try {
+        console.log(payload)
+        await modbus.client.writeRegisters(49214, [payload])
+        return 'OK'
+    } catch (error) {
+        
+    }
+}
+
 export const commandLerning = async (payload) => {
     try {
         console.log(payload)
