@@ -120,7 +120,7 @@ export const settingDevice = async (payload) => {
                 const reg1 = buf.readUInt16BE(2)
                 const reg2 = buf.readUInt16BE(0)
                 const data = await modbus.client.writeRegisters(reg.addr, [reg1, reg2])
-                console.log('float', reg.name, data )
+                console.log('float', reg.name, value, reg1, reg2 )
             }
         }
         return 'OK'
