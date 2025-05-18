@@ -83,7 +83,9 @@ export const getDeviceInfo = async () => {
         {name: 'flowOffset', fc: '03', addr: 49329, count: 2, type: 'float', unit: 'm'},
         {name: 'veLearing', fc: '03', addr: 49214, count: 1, type: 'Int16', unit: ''},
         {name: 'cmdLearing', fc: '03', addr: 49219, count: 1, type: 'Int16', unit: ''},
-        {name: 'strVirtualEcho', fc: '03', addr: 49215, count: 1, type: 'float', unit: 'm'},
+        {name: 'strVirtualEcho', fc: '03', addr: 49215, count: 2, type: 'float', unit: 'm'},
+        {name: 'endVirtualEcho', fc: '03', addr: 49217, count: 2, type: 'float', unit: 'm'},
+        {name: 'fltTimerSetting', fc: '03', addr: 49169, count: 1, type: 'Int16', unit: 's'},
     ]
     const result = []
     for(const reg of register) {
@@ -158,6 +160,7 @@ export const factoryReset = async () => {
     try {
         const data  = [0x0000]
         await modbus.client.writeRegisters(45056, data)
+        await modbus.client.close()
         return 'OK'
     } catch (error) {
         console.log(error)
