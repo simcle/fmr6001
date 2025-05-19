@@ -44,7 +44,7 @@ export const getValue = async () => {
         } else {
             value = res.data[0]
         }
-        result.push({name: reg.name, value: value, unit: reg.unit})
+        result.push({title: reg.title, name: reg.name, value: value, unit: reg.unit})
     }
     return result
 }
@@ -91,7 +91,7 @@ export const getDeviceInfo = async () => {
             value = buf.readFloatBE(0).toFixed(2)
         }
 
-        result.push({title: reg.title, name: reg.name, value: value, unit: reg.unit})
+        result.push({name: reg.name, value: value, unit: reg.unit})
     }
     return result
 }
