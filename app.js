@@ -2,7 +2,7 @@ import express, { json } from 'express';
 import cors from 'cors'
 import PQueue from 'p-queue';
 import { listAvailableSerialPorts } from './serialScanner.js';
-import { connect, getValue, getDeviceInfo, disconnected, settingDevice, factoryReset, commandLerning, virtualLearning } from './controller.js';
+import { connect, getValue, getDeviceInfo, disconnected, settingDevice, factoryReset, commandLerning } from './controller.js';
 
 const queue = new PQueue({concurrency: 1})
 const app = express()
